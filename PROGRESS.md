@@ -1,21 +1,20 @@
 # SwiftVerificar-validation-profiles Progress
 
 ## Current State
-- Last completed sprint: 3
-- Last commit hash: b98b0e2
+- Last completed sprint: 4
+- Last commit hash: (pending)
 - Build status: passing
-- Total test count: 196
+- Total test count: 296
 - Cumulative coverage: 97%
 
 ## Completed Sprints
 - Sprint 1: XML Profile Import -- 0 types, 5 tests, 733 XML files + 1 XSD schema imported
 - Sprint 2: Core Enums -- 4 types, 98 new tests in 4 files (103 total)
 - Sprint 3: Profile Model Types -- 8 types, 93 new tests in 8 files (196 total)
+- Sprint 4: XML Parser -- 5 types, 100 new tests in 5 files (296 total)
 
 ## Next Sprint
-- Sprint 4: XML Parser
-- Types to create: ProfileXMLParser, ProfileXMLDelegate, ProfileLoader
-- Reference: TODO.md Phase 3 (Sections 3.1, 3.2)
+- Sprint 5: TBD (end of validation-profiles scope)
 
 ## Files Created (cumulative)
 ### Sources
@@ -32,6 +31,11 @@
 - Sources/SwiftVerificarValidationProfiles/Model/ProfileDetails.swift
 - Sources/SwiftVerificarValidationProfiles/Model/ValidationRule.swift
 - Sources/SwiftVerificarValidationProfiles/Model/ValidationProfile.swift
+- Sources/SwiftVerificarValidationProfiles/Parser/ProfileParseError.swift
+- Sources/SwiftVerificarValidationProfiles/Parser/ProfileLoadError.swift
+- Sources/SwiftVerificarValidationProfiles/Parser/ProfileXMLParser.swift
+- Sources/SwiftVerificarValidationProfiles/Parser/ProfileXMLDelegate.swift
+- Sources/SwiftVerificarValidationProfiles/Parser/ProfileLoader.swift
 - Sources/SwiftVerificarValidationProfiles/Resources/Profiles/validationProfile.xsd
 - Sources/SwiftVerificarValidationProfiles/Resources/Profiles/PDF_UA/ (307 XML files)
   - PDFUA-2.xml (consolidated PDF/UA-2 profile)
@@ -68,6 +72,11 @@
 - Tests/SwiftVerificarValidationProfilesTests/ProfileDetailsTests.swift
 - Tests/SwiftVerificarValidationProfilesTests/ValidationRuleTests.swift
 - Tests/SwiftVerificarValidationProfilesTests/ValidationProfileTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/ProfileParseErrorTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/ProfileLoadErrorTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/ProfileXMLParserTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/ProfileXMLDelegateTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/ProfileLoaderTests.swift
 
 ## Cross-Package Needs
 - (none)
@@ -83,3 +92,8 @@
 - Sprint 3: All 8 new model types have 100% code coverage; overall target coverage is 97.77%
 - Sprint 3: ValidationProfile includes convenience methods for filtering rules by object type and tags
 - Sprint 3: ErrorDetails includes formattedMessage(with:) for placeholder substitution in error messages
+- Sprint 4: XML Parser types use Foundation XMLParser exclusively (no third-party parsers)
+- Sprint 4: ProfileLoader is a singleton actor with caching for efficient repeated profile access
+- Sprint 4: ProfileXMLDelegate handles full XML validation profile parsing including rules, variables, tags, references
+- Sprint 4: All new parser types have 100% code coverage; 100 new tests added across 5 test files
+- Sprint 4: Removed obsolete stub types (ProfileType, old ProfileLoader, XMLProfile, XMLRule, ProfileError) from main module file
