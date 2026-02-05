@@ -1,22 +1,28 @@
 # SwiftVerificar-validation-profiles Progress
 
 ## Current State
-- Last completed sprint: 1
-- Last commit hash: 312798d
+- Last completed sprint: 2
+- Last commit hash: 3772eef
 - Build status: passing
-- Total test count: 5
-- Cumulative coverage: N/A (no new Swift code in Sprint 1)
+- Total test count: 103
+- Cumulative coverage: 97%
 
 ## Completed Sprints
-- Sprint 1: XML Profile Import -- 0 types, 0 tests, 733 XML files + 1 XSD schema imported
+- Sprint 1: XML Profile Import -- 0 types, 5 tests, 733 XML files + 1 XSD schema imported
+- Sprint 2: Core Enums -- 4 types, 98 new tests in 4 files (103 total)
 
 ## Next Sprint
-- Sprint 2: Core Enums
-- Types to create: PDFFlavour (16 cases), Specification (11 cases), PDFObjectType (188 cases), RuleTag (22 cases)
-- Reference: TODO.md Phase 2
+- Sprint 3: Profile Model Types
+- Types to create: ValidationProfile, ProfileDetails, ProfileVariable, ValidationRule, RuleID, ErrorDetails, ErrorArgument, Reference
+- Reference: TODO.md Phase 2 (Sections 2.2, 2.3)
 
 ## Files Created (cumulative)
 ### Sources
+- Sources/SwiftVerificarValidationProfiles/SwiftVerificarValidationProfiles.swift
+- Sources/SwiftVerificarValidationProfiles/Model/PDFFlavour.swift
+- Sources/SwiftVerificarValidationProfiles/Model/Specification.swift
+- Sources/SwiftVerificarValidationProfiles/Model/PDFObjectType.swift
+- Sources/SwiftVerificarValidationProfiles/Model/RuleTag.swift
 - Sources/SwiftVerificarValidationProfiles/Resources/Profiles/validationProfile.xsd
 - Sources/SwiftVerificarValidationProfiles/Resources/Profiles/PDF_UA/ (307 XML files)
   - PDFUA-2.xml (consolidated PDF/UA-2 profile)
@@ -40,7 +46,11 @@
   - 1a/, 1b/, 2a/, 2b/, 2u/, 3a/, 3b/, 3u/, 4/, 4e/, 4f/ (individual rule files)
 
 ### Tests
-- (no new test files in Sprint 1)
+- Tests/SwiftVerificarValidationProfilesTests/SwiftVerificarValidationProfilesTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/PDFFlavourTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/SpecificationTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/PDFObjectTypeTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/RuleTagTests.swift
 
 ## Cross-Package Needs
 - (none)
@@ -51,3 +61,5 @@
 - Only XML rule files and XSD schema imported; no Java source, build files, or other artifacts
 - Package.swift already configured with resources: [.copy("Resources/Profiles")] -- no changes needed
 - Priority order followed: PDF/UA-2 (91 files), PDF/UA-1 (106 files), WCAG-2-2 (94 files), then PDF/A (426 files)
+- Sprint 2: PDFObjectType has 188 cases matching TODO.md Section 2.4 exactly (COS: 23, PD: 68, Operators: 2, External: 6, XMP: 9, SE: 54, SA: 26)
+- Sprint 2: All new source files have 100% code coverage; overall target coverage is 97%
