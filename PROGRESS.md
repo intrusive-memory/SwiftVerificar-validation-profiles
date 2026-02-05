@@ -1,20 +1,21 @@
 # SwiftVerificar-validation-profiles Progress
 
 ## Current State
-- Last completed sprint: 2
-- Last commit hash: 3772eef
+- Last completed sprint: 3
+- Last commit hash: b98b0e2
 - Build status: passing
-- Total test count: 103
+- Total test count: 196
 - Cumulative coverage: 97%
 
 ## Completed Sprints
 - Sprint 1: XML Profile Import -- 0 types, 5 tests, 733 XML files + 1 XSD schema imported
 - Sprint 2: Core Enums -- 4 types, 98 new tests in 4 files (103 total)
+- Sprint 3: Profile Model Types -- 8 types, 93 new tests in 8 files (196 total)
 
 ## Next Sprint
-- Sprint 3: Profile Model Types
-- Types to create: ValidationProfile, ProfileDetails, ProfileVariable, ValidationRule, RuleID, ErrorDetails, ErrorArgument, Reference
-- Reference: TODO.md Phase 2 (Sections 2.2, 2.3)
+- Sprint 4: XML Parser
+- Types to create: ProfileXMLParser, ProfileXMLDelegate, ProfileLoader
+- Reference: TODO.md Phase 3 (Sections 3.1, 3.2)
 
 ## Files Created (cumulative)
 ### Sources
@@ -23,6 +24,14 @@
 - Sources/SwiftVerificarValidationProfiles/Model/Specification.swift
 - Sources/SwiftVerificarValidationProfiles/Model/PDFObjectType.swift
 - Sources/SwiftVerificarValidationProfiles/Model/RuleTag.swift
+- Sources/SwiftVerificarValidationProfiles/Model/RuleID.swift
+- Sources/SwiftVerificarValidationProfiles/Model/ErrorArgument.swift
+- Sources/SwiftVerificarValidationProfiles/Model/ErrorDetails.swift
+- Sources/SwiftVerificarValidationProfiles/Model/Reference.swift
+- Sources/SwiftVerificarValidationProfiles/Model/ProfileVariable.swift
+- Sources/SwiftVerificarValidationProfiles/Model/ProfileDetails.swift
+- Sources/SwiftVerificarValidationProfiles/Model/ValidationRule.swift
+- Sources/SwiftVerificarValidationProfiles/Model/ValidationProfile.swift
 - Sources/SwiftVerificarValidationProfiles/Resources/Profiles/validationProfile.xsd
 - Sources/SwiftVerificarValidationProfiles/Resources/Profiles/PDF_UA/ (307 XML files)
   - PDFUA-2.xml (consolidated PDF/UA-2 profile)
@@ -51,6 +60,14 @@
 - Tests/SwiftVerificarValidationProfilesTests/SpecificationTests.swift
 - Tests/SwiftVerificarValidationProfilesTests/PDFObjectTypeTests.swift
 - Tests/SwiftVerificarValidationProfilesTests/RuleTagTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/RuleIDTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/ErrorArgumentTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/ErrorDetailsTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/ReferenceTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/ProfileVariableTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/ProfileDetailsTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/ValidationRuleTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/ValidationProfileTests.swift
 
 ## Cross-Package Needs
 - (none)
@@ -63,3 +80,6 @@
 - Priority order followed: PDF/UA-2 (91 files), PDF/UA-1 (106 files), WCAG-2-2 (94 files), then PDF/A (426 files)
 - Sprint 2: PDFObjectType has 188 cases matching TODO.md Section 2.4 exactly (COS: 23, PD: 68, Operators: 2, External: 6, XMP: 9, SE: 54, SA: 26)
 - Sprint 2: All new source files have 100% code coverage; overall target coverage is 97%
+- Sprint 3: All 8 new model types have 100% code coverage; overall target coverage is 97.77%
+- Sprint 3: ValidationProfile includes convenience methods for filtering rules by object type and tags
+- Sprint 3: ErrorDetails includes formattedMessage(with:) for placeholder substitution in error messages
