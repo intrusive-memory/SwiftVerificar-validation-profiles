@@ -1,20 +1,21 @@
 # SwiftVerificar-validation-profiles Progress
 
 ## Current State
-- Last completed sprint: 4
-- Last commit hash: (pending)
+- Last completed sprint: 5
+- Last commit hash: 9b52d95
 - Build status: passing
-- Total test count: 296
-- Cumulative coverage: 97%
+- Total test count: 616
+- Cumulative coverage: 97%+
 
 ## Completed Sprints
 - Sprint 1: XML Profile Import -- 0 types, 5 tests, 733 XML files + 1 XSD schema imported
 - Sprint 2: Core Enums -- 4 types, 98 new tests in 4 files (103 total)
 - Sprint 3: Profile Model Types -- 8 types, 93 new tests in 8 files (196 total)
 - Sprint 4: XML Parser -- 5 types, 100 new tests in 5 files (296 total)
+- Sprint 5: Rule Expression Evaluator -- 9 types, 320 new tests in 9 files (616 total)
 
 ## Next Sprint
-- Sprint 5: TBD (end of validation-profiles scope)
+- Sprint 6: TBD (end of validation-profiles scope)
 
 ## Files Created (cumulative)
 ### Sources
@@ -36,6 +37,15 @@
 - Sources/SwiftVerificarValidationProfiles/Parser/ProfileXMLParser.swift
 - Sources/SwiftVerificarValidationProfiles/Parser/ProfileXMLDelegate.swift
 - Sources/SwiftVerificarValidationProfiles/Parser/ProfileLoader.swift
+- Sources/SwiftVerificarValidationProfiles/Expression/RuleExpression.swift
+- Sources/SwiftVerificarValidationProfiles/Expression/PropertyValue.swift
+- Sources/SwiftVerificarValidationProfiles/Expression/BinaryOperator.swift
+- Sources/SwiftVerificarValidationProfiles/Expression/UnaryOperator.swift
+- Sources/SwiftVerificarValidationProfiles/Expression/ExpressionToken.swift
+- Sources/SwiftVerificarValidationProfiles/Expression/ExpressionParseError.swift
+- Sources/SwiftVerificarValidationProfiles/Expression/ExpressionParser.swift
+- Sources/SwiftVerificarValidationProfiles/Expression/EvaluationError.swift
+- Sources/SwiftVerificarValidationProfiles/Expression/RuleExpressionEvaluator.swift
 - Sources/SwiftVerificarValidationProfiles/Resources/Profiles/validationProfile.xsd
 - Sources/SwiftVerificarValidationProfiles/Resources/Profiles/PDF_UA/ (307 XML files)
   - PDFUA-2.xml (consolidated PDF/UA-2 profile)
@@ -77,6 +87,15 @@
 - Tests/SwiftVerificarValidationProfilesTests/ProfileXMLParserTests.swift
 - Tests/SwiftVerificarValidationProfilesTests/ProfileXMLDelegateTests.swift
 - Tests/SwiftVerificarValidationProfilesTests/ProfileLoaderTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/PropertyValueTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/BinaryOperatorTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/UnaryOperatorTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/ExpressionTokenTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/ExpressionParseErrorTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/ExpressionParserTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/EvaluationErrorTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/RuleExpressionEvaluatorTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/ExpressionTests.swift
 
 ## Cross-Package Needs
 - (none)
@@ -97,3 +116,10 @@
 - Sprint 4: ProfileXMLDelegate handles full XML validation profile parsing including rules, variables, tags, references
 - Sprint 4: All new parser types have 100% code coverage; 100 new tests added across 5 test files
 - Sprint 4: Removed obsolete stub types (ProfileType, old ProfileLoader, XMLProfile, XMLRule, ProfileError) from main module file
+- Sprint 5: RuleExpression (renamed from Expression to avoid Swift 6 Foundation.Expression conflict) is the AST node type
+- Sprint 5: ExpressionParser implements recursive descent parsing with operator precedence for JavaScript-like expressions
+- Sprint 5: RuleExpressionEvaluator evaluates expressions with support for string methods, array operations, and Math functions
+- Sprint 5: PropertyValue enum represents runtime values (null, bool, int, double, string, array) for expression evaluation
+- Sprint 5: All 9 expression types have 100% code coverage; 320 new tests added across 9 test files
+- Sprint 5: Fixed naming collision with Foundation.Expression in Swift 6 by renaming to RuleExpression throughout
+- Sprint 5: Parser correctly distinguishes between negative literals (-5) and unary minus expressions (-x)
