@@ -1,10 +1,10 @@
 # SwiftVerificar-validation-profiles Progress
 
 ## Current State
-- Last completed sprint: 5
-- Last commit hash: 9b52d95
+- Last completed sprint: 6
+- Last commit hash: 9eb1400
 - Build status: passing
-- Total test count: 616
+- Total test count: 686
 - Cumulative coverage: 97%+
 
 ## Completed Sprints
@@ -13,9 +13,10 @@
 - Sprint 3: Profile Model Types -- 8 types, 93 new tests in 8 files (196 total)
 - Sprint 4: XML Parser -- 5 types, 100 new tests in 5 files (296 total)
 - Sprint 5: Rule Expression Evaluator -- 9 types, 320 new tests in 9 files (616 total)
+- Sprint 6: Profile Validation Integration -- 4 types, 70 new tests in 4 files (686 total)
 
 ## Next Sprint
-- Sprint 6: TBD (end of validation-profiles scope)
+- None (validation-profiles package complete)
 
 ## Files Created (cumulative)
 ### Sources
@@ -46,6 +47,10 @@
 - Sources/SwiftVerificarValidationProfiles/Expression/ExpressionParser.swift
 - Sources/SwiftVerificarValidationProfiles/Expression/EvaluationError.swift
 - Sources/SwiftVerificarValidationProfiles/Expression/RuleExpressionEvaluator.swift
+- Sources/SwiftVerificarValidationProfiles/Validation/ValidationContext.swift
+- Sources/SwiftVerificarValidationProfiles/Validation/RuleTestRunner.swift
+- Sources/SwiftVerificarValidationProfiles/Validation/ProfileDirectory.swift
+- Sources/SwiftVerificarValidationProfiles/Validation/ProfileValidator.swift
 - Sources/SwiftVerificarValidationProfiles/Resources/Profiles/validationProfile.xsd
 - Sources/SwiftVerificarValidationProfiles/Resources/Profiles/PDF_UA/ (307 XML files)
   - PDFUA-2.xml (consolidated PDF/UA-2 profile)
@@ -96,6 +101,10 @@
 - Tests/SwiftVerificarValidationProfilesTests/EvaluationErrorTests.swift
 - Tests/SwiftVerificarValidationProfilesTests/RuleExpressionEvaluatorTests.swift
 - Tests/SwiftVerificarValidationProfilesTests/ExpressionTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/ValidationContextTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/RuleTestRunnerTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/ProfileDirectoryTests.swift
+- Tests/SwiftVerificarValidationProfilesTests/ProfileValidatorTests.swift
 
 ## Cross-Package Needs
 - (none)
@@ -123,3 +132,9 @@
 - Sprint 5: All 9 expression types have 100% code coverage; 320 new tests added across 9 test files
 - Sprint 5: Fixed naming collision with Foundation.Expression in Swift 6 by renaming to RuleExpression throughout
 - Sprint 5: Parser correctly distinguishes between negative literals (-5) and unary minus expressions (-x)
+- Sprint 6: ValidationContext provides property/variable bindings for rule evaluation
+- Sprint 6: RuleTestRunner executes validation rule tests against PDF objects with context
+- Sprint 6: ProfileDirectory provides high-level service for accessing profiles and filtering rules
+- Sprint 6: ProfileValidator validates profile integrity, checking expressions, object types, and variables
+- Sprint 6: All 4 validation types have 100% code coverage; 70 new tests added across 4 test files
+- Sprint 6: Package complete with 30 source types and 686 total tests
