@@ -1,5 +1,12 @@
 import Foundation
 
+// MARK: - Type Exports to Avoid Module/Struct Name Collision
+
+/// Expression property value type used in rule evaluation.
+/// This export avoids the module/struct name collision when importing from validation package.
+/// - SeeAlso: ``PropertyValue``
+public typealias ExpressionPropertyValue = PropertyValue
+
 /// SwiftVerificarValidationProfiles - Validation profiles for SwiftVerificar
 ///
 /// Swift port of veraPDF-validation-profiles providing XML validation rules
