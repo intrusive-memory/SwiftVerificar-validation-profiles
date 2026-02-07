@@ -1,66 +1,124 @@
-# SwiftVerificar-validation-profiles — Agent Instructions
+# SwiftVerificarValidationProfiles — Agent Instructions
 
-Swift port of [veraPDF-validation-profiles](https://github.com/veraPDF/veraPDF-validation-profiles).
+## Overview
 
-See the parent [SwiftVerificar/AGENTS.md](../AGENTS.md) for ecosystem overview, implementation roadmap, and general guidelines.
+**Module name**: `SwiftVerificarValidationProfiles`
 
-## Purpose
+XML validation profiles for PDF/A, PDF/UA, and WCAG standards. This library provides rule definitions, profile loading, expression parsing, and expression evaluation that drive the SwiftVerificar validation engine.
 
-Validation profile definitions providing:
+- 40 public types
+- 686 tests, 91.75%+ coverage
+- No external dependencies
+- Swift 6.0, all types `Sendable`, Swift Testing framework
 
-- XML validation rules for PDF/A and PDF/UA
-- Profile loader and parser
-- Rule definitions for compliance checking
+## Key Public Types
 
-## Source Reference
+### Enumerations
 
-- **Original**: [veraPDF-validation-profiles](https://github.com/veraPDF/veraPDF-validation-profiles)
-- **Format**: XML (validationProfile.xsd schema)
-- **License**: GPLv3+ / MPLv2+
+| Type | Cases | Description |
+|------|-------|-------------|
+| `PDFFlavour` | 17 | Identifies which standard to validate against: `pdfA1a`, `pdfA1b`, `pdfA2a`, `pdfA2b`, `pdfA2u`, `pdfA3a`, `pdfA3b`, `pdfA3u`, `pdfA4`, `pdfA4e`, `pdfA4f`, `pdfUA1`, `pdfUA2`, `wcag22`, `wtpdf1Accessibility`, `wtpdf1Reuse` |
+| `Specification` | 11 | ISO standard references (e.g., ISO 19005-1, ISO 14289-2) |
+| `PDFObjectType` | 188 | All PDF object types across COS, PD, SE, SA layers |
+| `RuleTag` | 18 | Severity, checkability, and category tags for rules |
+| `RuleExpression` | — | AST for parsed rule test expressions |
+| `PropertyValue` | — | Runtime values: `null`, `bool`, `int`, `double`, `string`, `array` |
 
-## Profile Structure (Original)
+### Structs
+
+| Type | Description |
+|------|-------------|
+| `ValidationProfile` | Complete profile with rules, variables, and metadata |
+| `ValidationRule` | Single validation rule with test expression and error details |
+| `RuleID` | Unique rule identifier composed of `spec` + `clause` + `testNumber` |
+| `ErrorDetails` | Error message template with argument substitution |
+| `ProfileVariable` | Configurable variable within a profile |
+
+### Actors and Services
+
+| Type | Description |
+|------|-------------|
+| `ProfileLoader` | Thread-safe singleton actor for loading profiles from bundled XML |
+| `ProfileXMLParser` | Parses XML profile files into `ValidationProfile` structs |
+| `RuleExpressionEvaluator` | Evaluates rule test expressions against PDF object contexts |
+| `ProfileValidator` | Validates profile integrity |
+| `ProfileDirectory` | High-level actor for profile queries |
+| `RuleTestRunner` | Executes rules against PDF objects |
+| `ExpressionParser` | Parses rule test expression strings into `RuleExpression` AST |
+
+### Type Aliases
+
+| Type | Description |
+|------|-------------|
+| `ExpressionPropertyValue` | Typealias to avoid module/struct name collision with `PropertyValue` |
+
+## Common Usage Patterns
+
+```swift
+import SwiftVerificarValidationProfiles
+
+// Load a profile
+let profile = try await ProfileLoader.shared.loadProfile(for: .pdfUA2)
+
+// Access profile rules
+for rule in profile.rules {
+    print(rule.ruleID, rule.description)
+}
+
+// Evaluate a rule expression
+let evaluator = RuleExpressionEvaluator()
+let result = try evaluator.evaluate(rule.testExpression, context: context)
+```
+
+## Bundled Resources
+
+733 XML profile files organized in two directories:
 
 ```
-veraPDF-validation-profiles/
+Resources/
 ├── PDF_A/           # PDF/A rules (ISO 19005)
 │   ├── 1a/
 │   ├── 1b/
 │   ├── 2a/
 │   ├── 2b/
+│   ├── 2u/
 │   ├── 3a/
 │   ├── 3b/
-│   └── 4/
+│   ├── 3u/
+│   ├── 4/
+│   ├── 4e/
+│   └── 4f/
 └── PDF_UA/          # PDF/UA rules (ISO 14289)
     ├── 1/
     ├── 2/
     └── WTPDF/
 ```
 
-## Key Types to Implement
+## Build and Test
 
-```swift
-// Profile Types
-enum ProfileType
-struct XMLProfile
-struct XMLRule
+**CRITICAL**: NEVER use `swift build` or `swift test`. Always use `xcodebuild`.
 
-// Loader
-actor ProfileLoader
+```bash
+# Build
+cd /Users/stovak/Projects/SwiftVerificar/SwiftVerificar-validation-profiles
+xcodebuild build -scheme SwiftVerificarValidationProfiles -destination 'platform=macOS'
 
-// Parser
-struct ProfileXMLParser
+# Test
+cd /Users/stovak/Projects/SwiftVerificar/SwiftVerificar-validation-profiles
+xcodebuild test -scheme SwiftVerificarValidationProfiles -destination 'platform=macOS'
 ```
 
-## Implementation Strategy
+## Architecture Notes
 
-1. **Import XML profiles** — Copy relevant XML files from veraPDF-validation-profiles
-2. **Parse with XMLParser** — Use Foundation's XMLParser for profile loading
-3. **Bundle as resources** — Include XML files as package resources
-4. **Lazy loading** — Load profiles on demand to minimize memory usage
+- All types conform to `Sendable` for Swift 6 strict concurrency
+- `ProfileLoader` is an actor with a shared singleton — thread-safe caching of loaded profiles
+- `ProfileDirectory` is an actor providing high-level queries across all profiles
+- Expression evaluation uses an AST (`RuleExpression` enum) parsed by `ExpressionParser` and evaluated by `RuleExpressionEvaluator`
+- `PropertyValue` represents runtime values during expression evaluation
+- XML profiles are bundled as Swift Package Manager resources and loaded on demand
 
-## Priority Profiles (for Lazarillo)
+## Source Reference
 
-1. **PDF/UA-2** — Primary target for accessibility validation
-2. **PDF/UA-1** — Secondary accessibility profile
-3. **PDF/A-2a** — Archive with accessibility
-4. **PDF/A-1b** — Basic archive compliance
+- **Original**: [veraPDF-validation-profiles](https://github.com/veraPDF/veraPDF-validation-profiles)
+- **Format**: XML validation rules (validationProfile.xsd schema)
+- **License**: GPLv3+ / MPLv2+
